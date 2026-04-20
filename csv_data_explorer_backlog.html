@@ -1,0 +1,186 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .root { padding: 1.5rem 0; }
+  .header { margin-bottom: 1.5rem; }
+  .header h1 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .header p { font-size: 13px; color: var(--color-text-secondary); }
+  .meta-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .badge { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
+  .badge-blue { background: #E6F1FB; color: #0C447C; }
+  .badge-purple { background: #EEEDFE; color: #3C3489; }
+  .badge-teal { background: #E1F5EE; color: #085041; }
+  .badge-amber { background: #FAEEDA; color: #633806; }
+  .badge-coral { background: #FAECE7; color: #712B13; }
+  .days { display: flex; flex-direction: column; gap: 12px; }
+  .day-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+  .day-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .day-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; flex-shrink: 0; }
+  .day-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); }
+  .day-sub { font-size: 12px; color: var(--color-text-secondary); margin-top: 1px; }
+  .day-time { margin-left: auto; font-size: 11px; color: var(--color-text-secondary); background: var(--color-background-secondary); padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+  .tasks { padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .task { display: flex; align-items: flex-start; gap: 10px; }
+  .task-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .task-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+  .task-tag { font-size: 10px; font-weight: 500; padding: 2px 7px; border-radius: 10px; margin-left: 6px; vertical-align: middle; }
+  .day-footer { padding: 8px 16px 10px; border-top: 0.5px solid var(--color-border-tertiary); display: flex; gap: 6px; flex-wrap: wrap; }
+  .stack-pill { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: var(--color-background-secondary); color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); }
+  .deliverable { font-size: 11px; color: var(--color-text-secondary); margin: 0 16px 10px; padding: 6px 10px; border-left: 2px solid #9FE1CB; background: #E1F5EE; border-radius: 0 6px 6px 0; }
+  .deliverable span { color: #085041; font-weight: 500; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 1rem; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--color-text-secondary); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1.5rem; }
+  .stat { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 3px; }
+  .stat-val { font-size: 20px; font-weight: 500; color: var(--color-text-primary); }
+  .stat-unit { font-size: 11px; color: var(--color-text-secondary); }
+</style>
+
+<div class="root">
+  <div class="header">
+    <h1>csv-data-explorer — Backlog semanal</h1>
+    <p>1 hora diaria · 7 días · Stack: PHP + Flask + MySQL + Chart.js</p>
+  </div>
+
+  <div class="summary">
+    <div class="stat"><div class="stat-label">Duración</div><div class="stat-val">7 <span class="stat-unit">días</span></div></div>
+    <div class="stat"><div class="stat-label">Horas totales</div><div class="stat-val">7 <span class="stat-unit">hrs</span></div></div>
+    <div class="stat"><div class="stat-label">Tareas</div><div class="stat-val">21 <span class="stat-unit">items</span></div></div>
+    <div class="stat"><div class="stat-label">Entregables</div><div class="stat-val">7 <span class="stat-unit">demos</span></div></div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#185FA5"></div>Setup / Config</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#3B6D11"></div>Backend PHP</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#534AB7"></div>Flask / Python</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#BA7517"></div>Frontend</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#993C1D"></div>Integraciones</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#888780"></div>QA / Deploy</div>
+  </div>
+
+  <div class="days">
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#E6F1FB;color:#0C447C;">1</div>
+        <div><div class="day-title">Configuración del entorno</div><div class="day-sub">Estructura base del proyecto</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#185FA5"></div><div class="task-text">Crear proyecto CodeIgniter 3 con estructura MVC limpia <span class="task-tag" style="background:#E6F1FB;color:#0C447C;">CI3</span></div></div>
+        <div class="task"><div class="task-dot" style="background:#185FA5"></div><div class="task-text">Configurar <code>config.php</code>, <code>database.php</code> y crear la base de datos en MySQL</div></div>
+        <div class="task"><div class="task-dot" style="background:#534AB7"></div><div class="task-text">Crear entorno virtual Python, instalar Flask y Pandas (<code>pip install flask pandas</code>)</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> Proyecto CI3 corriendo en localhost + Flask en puerto 5000</div>
+      <div class="day-footer">
+        <span class="stack-pill">PHP 7+</span><span class="stack-pill">CodeIgniter 3</span><span class="stack-pill">MySQL</span><span class="stack-pill">Flask</span><span class="stack-pill">Python venv</span>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#E1F5EE;color:#085041;">2</div>
+        <div><div class="day-title">Base de datos + subida de CSV</div><div class="day-sub">Modelo de datos y file upload</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#3B6D11"></div><div class="task-text">Crear tabla <code>uploads</code> en MySQL (id, filename, original_name, rows, created_at)</div></div>
+        <div class="task"><div class="task-dot" style="background:#3B6D11"></div><div class="task-text">Controlador <code>Upload.php</code> en CI3: valida extensión .csv y guarda el archivo en <code>/uploads/</code></div></div>
+        <div class="task"><div class="task-dot" style="background:#BA7517"></div><div class="task-text">Vista HTML mínima con Bootstrap: formulario de subida con input file y botón</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> Puedes subir un CSV desde el navegador y verlo guardado en el servidor</div>
+      <div class="day-footer">
+        <span class="stack-pill">CI3 Controller</span><span class="stack-pill">CI3 Model</span><span class="stack-pill">Bootstrap</span><span class="stack-pill">MySQL</span>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#EEEDFE;color:#3C3489;">3</div>
+        <div><div class="day-title">API Flask con Pandas</div><div class="day-sub">El corazón analítico del proyecto</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#534AB7"></div><div class="task-text">Endpoint <code>POST /analyze</code> en Flask: recibe ruta de archivo, lee CSV con Pandas</div></div>
+        <div class="task"><div class="task-dot" style="background:#534AB7"></div><div class="task-text">Calcula por columna numérica: min, max, promedio, mediana, desviación estándar y conteo de nulos</div></div>
+        <div class="task"><div class="task-dot" style="background:#534AB7"></div><div class="task-text">Devuelve JSON estructurado con columnas, tipos de datos y estadísticas</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> Puedes hacer un POST con Postman y recibir el análisis en JSON</div>
+      <div class="day-footer">
+        <span class="stack-pill">Flask</span><span class="stack-pill">Pandas</span><span class="stack-pill">JSON API</span><span class="stack-pill">Postman</span>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#FAECE7;color:#712B13;">4</div>
+        <div><div class="day-title">Integración PHP ↔ Flask</div><div class="day-sub">Conectar ambos mundos</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#993C1D"></div><div class="task-text">Desde CI3, usar <code>file_get_contents()</code> o <code>cURL</code> para llamar al endpoint de Flask tras subir el CSV</div></div>
+        <div class="task"><div class="task-dot" style="background:#993C1D"></div><div class="task-text">Guardar el resultado JSON en MySQL (tabla <code>analysis_results</code>)</div></div>
+        <div class="task"><div class="task-dot" style="background:#3B6D11"></div><div class="task-text">Mostrar las estadísticas en una tabla HTML básica en la vista de resultados</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> Subes un CSV, PHP llama a Flask y muestra los datos en pantalla</div>
+      <div class="day-footer">
+        <span class="stack-pill">cURL / PHP</span><span class="stack-pill">CI3 Model</span><span class="stack-pill">MySQL JSON</span><span class="stack-pill">Bootstrap table</span>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#FAEEDA;color:#633806;">5</div>
+        <div><div class="day-title">Visualización con Chart.js</div><div class="day-sub">Hacer los datos visibles</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#BA7517"></div><div class="task-text">Agregar Chart.js via CDN a la vista de resultados</div></div>
+        <div class="task"><div class="task-dot" style="background:#BA7517"></div><div class="task-text">Gráfica de barras: top columnas por promedio. Gráfica de dona: distribución de nulos vs datos válidos</div></div>
+        <div class="task"><div class="task-dot" style="background:#BA7517"></div><div class="task-text">Pasar los datos de PHP a JS usando <code>json_encode()</code> en la vista</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> La página de resultados muestra tablas + 2 gráficas interactivas</div>
+      <div class="day-footer">
+        <span class="stack-pill">Chart.js CDN</span><span class="stack-pill">PHP json_encode</span><span class="stack-pill">Bootstrap grid</span>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#EAF3DE;color:#27500A;">6</div>
+        <div><div class="day-title">Historial + exportación</div><div class="day-sub">Memoria y utilidad real</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#3B6D11"></div><div class="task-text">Vista de historial: lista de todos los archivos analizados con fecha y link a resultados</div></div>
+        <div class="task"><div class="task-dot" style="background:#3B6D11"></div><div class="task-text">Botón "Exportar CSV": genera y descarga un <code>.csv</code> con las estadísticas del análisis actual</div></div>
+        <div class="task"><div class="task-dot" style="background:#534AB7"></div><div class="task-text">Endpoint Flask opcional <code>GET /export-pdf</code> con <code>fpdf2</code> para generar reporte PDF básico</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> Historial navegable + descarga de reporte en CSV (y PDF si da tiempo)</div>
+      <div class="day-footer">
+        <span class="stack-pill">CI3 View</span><span class="stack-pill">fputcsv PHP</span><span class="stack-pill">fpdf2 Python</span><span class="stack-pill">MySQL</span>
+      </div>
+    </div>
+
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-num" style="background:#F1EFE8;color:#444441;">7</div>
+        <div><div class="day-title">Pruebas, README y GitHub</div><div class="day-sub">El día que convierte trabajo en portafolio</div></div>
+        <div class="day-time">~60 min</div>
+      </div>
+      <div class="tasks">
+        <div class="task"><div class="task-dot" style="background:#888780"></div><div class="task-text">Probar con 3 CSVs distintos (pequeño, mediano, con nulos) y corregir errores encontrados</div></div>
+        <div class="task"><div class="task-dot" style="background:#888780"></div><div class="task-text">Escribir <code>README.md</code>: descripción, stack, instrucciones de instalación y screenshots</div></div>
+        <div class="task"><div class="task-dot" style="background:#888780"></div><div class="task-text">Subir a GitHub con commits organizados por día, agregar el link al CV y LinkedIn</div></div>
+      </div>
+      <div class="deliverable"><span>Entregable:</span> Repositorio público listo para mostrar a un reclutador</div>
+      <div class="day-footer">
+        <span class="stack-pill">Git</span><span class="stack-pill">GitHub</span><span class="stack-pill">Markdown</span><span class="stack-pill">Screenshots</span>
+      </div>
+    </div>
+
+  </div>
+</div>
