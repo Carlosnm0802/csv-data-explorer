@@ -8,6 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | This file specifies which systems should be loaded by default.
 |
 | In order to keep the framework as light-weight as possible only the
+/*
+$autoload['helper'] = array('url', 'file');
 | absolute minimal resources are loaded by default. For example,
 | the database is not connected to automatically since no assumption
 | is made regarding whether you intend to use it.  This file lets
@@ -89,7 +91,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helpers'] = array('url', 'file');
+$autoload['helper'] = array('url', 'file');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Config files
