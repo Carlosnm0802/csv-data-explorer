@@ -33,16 +33,29 @@
 
     <!-- Encabezado -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-0">Resultados del análisis</h2>
-            <p class="text-muted mb-0" style="font-size:13px;">
-                ID #<?= $upload_id ?>
-            </p>
-        </div>
-        <a href="<?= base_url('upload') ?>" class="btn btn-outline-primary btn-sm">
-            Subir otro CSV
+    <div>
+        <h2 class="mb-0">Resultados del análisis</h2>
+        <p class="text-muted mb-0" style="font-size:13px;">ID #<?= $upload_id ?></p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="<?= base_url('upload/export_csv/' . $upload_id) ?>"
+           class="btn btn-outline-success btn-sm">
+            Exportar CSV
+        </a>
+        <a href="<?= base_url('upload/export_pdf/' . $upload_id) ?>"
+           class="btn btn-outline-danger btn-sm">
+            Exportar PDF
+        </a>
+        <a href="<?= base_url('upload/history') ?>"
+           class="btn btn-outline-secondary btn-sm">
+            Historial
+        </a>
+        <a href="<?= base_url('upload') ?>"
+           class="btn btn-outline-primary btn-sm">
+            Subir otro
         </a>
     </div>
+</div>
 
     <!-- Tarjetas de resumen -->
     <div class="row g-3 mb-4">

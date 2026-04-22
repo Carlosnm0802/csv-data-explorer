@@ -89,4 +89,97 @@ class Upload extends CI_Controller {
 
         $this->load->view('results', $data);
     }
+    // ---- HISTORIAL ----
+public function history() {
+    $data['uploads'] = $this->Upload_model->get_uploads_with_analysis();
+    $this->load->view('history', $data);
+}
+
+// ---- EXPORTAR CSV ----
+public function export_csv($upload_id = 0) {
+    $analysis = $this->Analysis_model->get_by_upload_id($upload_id);
+
+    if (!$analysis) {
+        show_404();
+        return;
+    }
+
+    $stats = json_decode($analysis->stats, TRUE);
+
+    // Configurar headers para descarga
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="analisis_' . $upload_id . '.csv"');
+
+    $output = fopen('php://output', 'w');
+
+    // Encabezados del CSV
+    fputcsv($output, [
+        'Columna', 'Mínimo', 'Máximo', 'Promedio',
+        'Mediana', 'Desv. Estándar', 'Nulos', 'Válidos'
+    ]);
+
+    // Filas de datos
+    foreach ($stats as $col) {
+        fputcsv($output, [
+            $col['column'],
+            $col['min'],
+            $col['max'],
+            $col['mean'],
+            $col['median'],
+            $col['std'],
+            $col['nulls'],
+            $col['valid']
+        ]);
+    }
+
+    fclose($output);
+    exit;
+}
+
+// ---- EXPORTAR PDF ----
+public function export_pdf($upload_id = 0) {
+    $analysis = $this->Analysis_model->get_by_upload_id($upload_id);
+
+    if (!$analysis) {
+        show_404();
+        return;
+    }
+
+    $stats = json_decode($analysis->stats, TRUE);
+
+    // Configurar headers para descarga PDF
+    header('Content-Type: application/pdf');
+    header('Content-Disposition: attachment; filename="analisis_' . $upload_id . '.pdf"');
+
+    // Llamar al endpoint de Flask para generar el PDF
+    $flask_url = 'http://localhost:5000/export-pdf';
+
+    $payload = json_encode([
+        'upload_id'    => (int) $upload_id,
+        'total_rows'   => $analysis->total_rows,
+        'total_columns'=> $analysis->total_columns,
+        'stats'        => $stats
+    ]);
+
+    $ch = curl_init($flask_url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_POST,           TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS,     $payload);
+    curl_setopt($ch, CURLOPT_HTTPHEADER,     [
+        'Content-Type: application/json'
+    ]);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+
+    $pdf_content = curl_exec($ch);
+    $http_code   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($http_code !== 200 || !$pdf_content) {
+        show_error('No se pudo generar el PDF. Verifica que Flask esté corriendo.');
+        return;
+    }
+
+    echo $pdf_content;
+    exit;
+}
 }
